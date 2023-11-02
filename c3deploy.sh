@@ -89,7 +89,7 @@ function full_update {
 function deploy {
     clear
     deploy_back
-    update_front
+    deploy_front
 }
 
 # start script
