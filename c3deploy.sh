@@ -11,9 +11,7 @@ ENV_FILE=/home/$USER/ENV/.env.production.local
 function startapp {
     echo "Start app..."
     cd $BACK_DIR
-    # TODO реализовать старт|рестарт приложения
-    # pm2 start
-    echo
+    npm run start:prod
 }
 
 function clear {
