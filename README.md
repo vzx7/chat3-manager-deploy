@@ -1,6 +1,33 @@
 # chat3-manager-deploy
 Chat3-manager project deployment script.
 Git must be installed on the system.
+
+It is necessary that the directory **/home/$USER/ENV/.env.production.local** contains a settings file for your backend.
+
+```ini
+#/home/$USER/ENV/.env.production.local
+# PORT
+PORT = 3030
+
+# TOKEN
+SECRET_KEY = asdfadf
+
+# LOG
+LOG_FORMAT = dev
+LOG_DIR = ../logs
+
+# CORS
+ORIGIN = your.domain.com
+CREDENTIALS = true
+
+# DATABASE
+POSTGRES_USER = root
+POSTGRES_PASSWORD = asdfasdf
+POSTGRES_HOST = localhost
+POSTGRES_PORT = 5432
+POSTGRES_DB = dev
+```
+
 Use:
 ```bash 
 $ git clone git@github.com:vzx7/chat3-manager-deploy.git
