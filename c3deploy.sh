@@ -5,6 +5,7 @@ BACK_DIR=/home/$USER/$1
 FRONT_DIR=$BACK_DIR/dist/static
 TMP_BACK=/tmp/BACK
 TMP_FRONT=/tmp/FRONT
+ENV_FILE=/home/$USER/ENV/.env.production.local
 
 # functions
 function startapp {
@@ -28,6 +29,7 @@ function deploy_back () {
     cd $BACK_DIR
     npm i
     npm run build
+    cp $ENV_FILE .
 }
 
 
