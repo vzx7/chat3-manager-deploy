@@ -29,8 +29,11 @@ function deploy_back () {
     git clone git@github.com:vzx7/chat3-manager-backend.git $BACK_DIR --verbose
     cd $BACK_DIR
     npm i
-    npm run build
+    npm run build:tsc
     cp $ENV_FILE .
+    mkdir logs
+    touch logs/access.log
+    touch logs/error.log
 }
 
 
