@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-# ENV
+# ENV DEFAULT
 OWN=$USER
 PART_PATH=www
+
+# set OWN
+if [ "$1" != "" -a -d "/home/$1" ] ; then 
+    OWN=$1
+fi
+# set PART_PATH
+if [ "$2" != "" -a -d "/home/$OWN/$2" ] ; then 
+    PART_PATH=$2
+fi
+
+# ENV MIX
 BACK_DIR=/home/$OWN/$PART_PATH
 FRONT_DIR=$BACK_DIR/dist/static
 TMP_BACK=/tmp/BACK
@@ -19,13 +30,13 @@ function startapp {
 
 function clear {
     echo
-    echo "Clear location..."
+    echo "Clear location $BACK_DIR..."
     rm -Rf $BACK_DIR
     mkdir $BACK_DIR
 }
 
 function deploy_back () {
-    echo "Deploing backend..."
+    echo "Deploing backend to $BACK_DIR..."
     git clone git@github.com:vzx7/chat3-manager-backend.git $BACK_DIR --verbose
     cd $BACK_DIR
     npm i
@@ -49,7 +60,7 @@ function update_back {
 
 function deploy_front {
     echo
-    echo "Deploing frontend..."
+    echo "Deploing frontend to $FRONT_DIR..."
     rm -Rf $TMP_FRONT
     mkdir $TMP_FRONT
     git clone git@github.com:vzx7/chat3-manager-frontend.git $TMP_FRONT --verbose
@@ -94,16 +105,6 @@ function deploy {
     deploy_back
     deploy_front
 }
-
-# start script
-# set OWN
-if [ "$1" != "" -a -d "/home/$1" ] ; then 
-    OWN=$1
-fi
-# set PART_PATH
-if [ "$2" != "" -a -d "/home/$OWN/$2" ] ; then 
-    PART_PATH=$2
-fi
 
 echo "How do you want to do?"
 echo -e "\nSelect level: \n\n- deploy = 0 \n- full update = 1 \n- front update = 2 \n- back update = 3"
