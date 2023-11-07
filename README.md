@@ -13,7 +13,7 @@ PORT = 3030
 SECRET_KEY = asdfadf
 
 # LOG
-LOG_FORMAT = dev
+LOG_FORMAT = combined
 LOG_DIR = ../logs
 
 # CORS
@@ -25,7 +25,7 @@ POSTGRES_USER = root
 POSTGRES_PASSWORD = asdfasdf
 POSTGRES_HOST = localhost
 POSTGRES_PORT = 5432
-POSTGRES_DB = dev
+POSTGRES_DB = prod
 ```
 
 Use:
