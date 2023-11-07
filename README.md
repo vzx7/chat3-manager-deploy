@@ -2,10 +2,10 @@
 Chat3-manager project deployment script.
 Git must be installed on the system.
 
-It is necessary that the directory **/home/$USER/ENV/.env.production.local** contains a settings file for your backend.
+It is necessary that the directory **/home/$OWN/ENV/.env.production.local** contains a settings file for your backend.
 
 ```ini
-#/home/$USER/ENV/.env.production.local
+#/home/$OWN/ENV/.env.production.local
 # PORT
 PORT = 3030
 
@@ -36,8 +36,8 @@ $ chmod u+x c3deploy.sh
 $ ./c3deploy.sh www
 ```
 
-The first argument to the script must be the location of your project relative to the $USER directory.
+Optionally, you can pass the project owner ($OWN) and the path to the application root ($PART_PATH) where deploy will be executed.
 ```bash 
-$ ./c3deploy.sh www
+$ ./c3deploy.sh web www 
 ```
-That is **/home/$USER/www**.
+That is **/home/$OWN/$PART_PATH**. Default is **/home/$USER/www**
