@@ -33,7 +33,7 @@ Use:
 $ git clone git@github.com:vzx7/chat3-manager-deploy.git
 $ cd chat3-manager-deploy
 $ chmod u+x c3deploy.sh
-$ ./c3deploy.sh www
+$ ./c3deploy.sh web www 
 ```
 
 Optionally, you can pass the project owner ($OWN) and the path to the application root ($PART_PATH) where deploy will be executed.
