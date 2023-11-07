@@ -13,7 +13,7 @@ PORT = 3030
 SECRET_KEY = asdfadf
 
 # LOG
-LOG_FORMAT = dev
+LOG_FORMAT = combined
 LOG_DIR = ../logs
 
 # CORS
@@ -25,7 +25,7 @@ POSTGRES_USER = root
 POSTGRES_PASSWORD = asdfasdf
 POSTGRES_HOST = localhost
 POSTGRES_PORT = 5432
-POSTGRES_DB = dev
+POSTGRES_DB = prod
 ```
 
 Use:
@@ -33,7 +33,7 @@ Use:
 $ git clone git@github.com:vzx7/chat3-manager-deploy.git
 $ cd chat3-manager-deploy
 $ chmod u+x c3deploy.sh
-$ ./c3deploy.sh www
+$ ./c3deploy.sh web www 
 ```
 
 Optionally, you can pass the project owner ($OWN) and the path to the application root ($PART_PATH) where deploy will be executed.
