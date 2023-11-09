@@ -18,7 +18,7 @@ BACK_DIR=/home/$OWN/$PART_PATH
 FRONT_DIR=$BACK_DIR/dist/static
 TMP_BACK=/tmp/BACK
 TMP_FRONT=/tmp/FRONT
-ENV_FILE=/home/$OWN/ENV/.env.production.local
+SETTINGS_DIR=/home/$OWN/ENV
 
 # functions
 function startapp {
@@ -28,20 +28,36 @@ function startapp {
     npm run start:prod
 }
 
-function clear {
-    echo
-    echo "Clear location $BACK_DIR..."
-    rm -Rf $BACK_DIR
-    mkdir $BACK_DIR
+function build_back {
+    rm -Rf $TMP_BACK
+    mkdir $TMP_BACK
+    git clone git@github.com:vzx7/chat3-manager-backend.git $TMP_BACK --verbose
+    cd $TMP_BACK
+    npm i
+    npm run build:tsc
+}
+
+function cp_back {
+    cp -R dist/* $BACK_DIR/dist
+    cp -R node_modules $BACK_DIR
+    cp ecosystem.config.js package.json $BACK_DIR
+}
+
+function install_back {
+    if [ -d $BACK_DIR/dist ] ; then
+        cp_back
+    else 
+        mkdir $BACK_DIR/dist
+        cp_back
+    fi
 }
 
 function deploy_back () {
     echo "Deploing backend to $BACK_DIR..."
-    git clone git@github.com:vzx7/chat3-manager-backend.git $BACK_DIR --verbose
+    build_back
+    install_back
+    cp $SETTINGS_DIR/.nvm $SETTINGS_DIR/.env.production.local $BACK_DIR
     cd $BACK_DIR
-    npm i
-    npm run build:tsc
-    cp $ENV_FILE .
     mkdir logs
     touch logs/access.log
     touch logs/error.log
@@ -49,20 +65,18 @@ function deploy_back () {
 
 
 function update_back {
-    echo
     echo "Update backend..."
-    rm -Rf $TMP_BACK
-    mkdir $TMP_BACK
-    cd $TMP_BACK
-    git clone git@github.com:vzx7/chat3-manager-backend.git $TMP_BACK --verbose
-    npm i
-    npm run build
-    rm -Rf $BACK_DIR/dist/
-    cp -R ./dist/ $BACK_DIR/
+    build_back
+    install_back
+}
+
+function install_front {
+    echo "Instal frontend."
+    cp -R ./dist/* $FRONT_DIR
+    echo -e "Done."
 }
 
 function deploy_front {
-    echo
     echo "Deploing frontend to $FRONT_DIR..."
     rm -Rf $TMP_FRONT
     mkdir $TMP_FRONT
@@ -71,11 +85,13 @@ function deploy_front {
     npm i
     npm run build
     echo "Clear frontend location."
-    rm -Rf $FRONT_DIR
-    mkdir $FRONT_DIR
-    echo "Instal frontend."
-    cp -R ./dist/* $FRONT_DIR
-    echo -e "Done."
+    
+    if [ -d $BACK_DIR/dist ] ; then
+        install_front
+    else 
+        mkdir $FRONT_DIR
+        install_front
+    fi
 }
 
 function update_front {
@@ -90,7 +106,6 @@ function update_front {
             echo -e "\nOk, good bye!"
             exit 1
         else
-            clear
             deploy_back
             echo -e "\nBackend deployed!"
             deploy_front
@@ -104,7 +119,6 @@ function full_update {
 }
 
 function deploy {
-    clear
     deploy_back
     deploy_front
 }
