@@ -15,6 +15,7 @@ fi
 
 # ENV MIX
 BACK_DIR=/home/$OWN/$PART_PATH
+BACK_DIST_DIR=$BACK_DIR/dist
 FRONT_DIR=$BACK_DIR/dist/static
 TMP_BACK=/tmp/BACK
 TMP_FRONT=/tmp/FRONT
@@ -24,8 +25,7 @@ SETTINGS_DIR=/home/$OWN/ENV
 function startapp {
     echo "Start app..."
     chown -R $OWN:$OWN $BACK_DIR
-    cd $BACK_DIR
-    npm run start:prod
+    /usr/local/hestia/data/templates/web/nginx/NodeJS1.sh manager manager.chat3.generem.ru 127.0.0.1 /home
 }
 
 function build_back {
@@ -38,22 +38,22 @@ function build_back {
 }
 
 function cp_back {
-    cp -R dist/* $BACK_DIR/dist
+    cp -R dist/* $BACK_DIST_DIR
     cp -R node_modules $BACK_DIR
     cp ecosystem.config.js package.json $BACK_DIR
 }
 
 function install_back {
-    if [ -d $BACK_DIR/dist ] ; then
+    if [ -d $BACK_DIST_DIR ] ; then
         cp_back
     else 
-        mkdir $BACK_DIR/dist
+        mkdir $BACK_DIST_DIR
         cp_back
     fi
 }
 
 function deploy_back () {
-    echo "Deploing backend to $BACK_DIR..."
+    echo "Deploing backend to $BACK_DIST_DIR..."
     build_back
     install_back
     cp $SETTINGS_DIR/.nvm $SETTINGS_DIR/.env.production.local $BACK_DIR
@@ -86,16 +86,18 @@ function deploy_front {
     npm run build
     echo "Clear frontend location."
     
-    if [ -d $BACK_DIR/dist ] ; then
+    if [ -d $FRONT_DIR ] ; then
         install_front
-    else 
-        mkdir $FRONT_DIR
+    else
+        cd $BACK_DIST_DIR
+        mkdir static
+        cd $TMP_FRONT
         install_front
     fi
 }
 
 function update_front {
-    if [ -d $FRONT_DIR ] ; then
+    if [ -d $BACK_DIR ] ; then
         deploy_front
     else
         echo "You must first deploy the backend!"
