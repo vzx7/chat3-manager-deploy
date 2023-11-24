@@ -25,7 +25,8 @@ SETTINGS_DIR=/home/$OWN/ENV
 function startapp {
     echo "Start app..."
     chown -R $OWN:$OWN $BACK_DIR
-    /usr/local/hestia/data/templates/web/nginx/NodeJS1.sh manager manager.chat3.generem.ru 127.0.0.1 /home
+    cd ~/chat3-manager-deploy
+    ./startapp.sh manager manager.chat3.generem.ru /home
 }
 
 function build_back {
