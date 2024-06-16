@@ -61,7 +61,13 @@ $ ./c3deploy.sh web www
 ```
 That is **/home/$OWN/$PART_PATH**. Default is **/home/$USER/www**
 
-## Edit nginx.conf for your domain
+## Setup application
+Next step: run **startapp.sh** as root!
+```sh
+./startapp.sh manager manager.chat3.generem.ru /home
+```
+
+### Edit nginx.conf for your domain
 ```ini
     location / {
 
@@ -75,4 +81,8 @@ That is **/home/$OWN/$PART_PATH**. Default is **/home/$USER/www**
         }
     }
 
+```
+### Restart nginx
+```sh
+systemctl restart nginx
 ```
