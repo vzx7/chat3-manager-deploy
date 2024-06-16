@@ -60,3 +60,19 @@ Optionally, you can pass the project owner ($OWN) and the path to the applicatio
 $ ./c3deploy.sh web www 
 ```
 That is **/home/$OWN/$PART_PATH**. Default is **/home/$USER/www**
+
+## Edit nginx.conf for your domain
+```ini
+    location / {
+
+        #add redirect if 404
+        try_files   $uri @fallback;
+
+
+        location ~* ^.+\.(css|htm|html|js|json|xml|apng|avif|bmp|cur|gif|ico|jfif|jpg|jpeg|pjp|pjpeg|png|svg|tif|tiff|webp|aac|caf|flac|m4a|midi|mp3|ogg|opus|wav|3gp|av1|avi|m4v|mkv|mov|mpg|mpeg|mp4|mp4v|webm|otf|ttf|woff|woff2|doc|docx|odf|odp|ods|odt|pdf|ppt|pptx|rtf|txt>
+            # replace root dir
+            root    /home/your_user/path_to_static_dist/;
+        }
+    }
+
+```
