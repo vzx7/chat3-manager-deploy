@@ -39,11 +39,10 @@ fi
 
 if [ -e  "$nodeDir/app.sock" ]; then
     rm "$nodeDir/app.sock"
-    runuser -l $user -c "pm2 del $scriptName"
-    echo "clear processes app.sock and old app instance"
+    echo "clear processes app.sock"
 fi
 
-
+runuser -l $user -c "pm2 del $scriptName"
 
 envFile=""
 # apply enviroment variables from .env file

@@ -64,7 +64,7 @@ That is **/home/$OWN/$PART_PATH**. Default is **/home/$USER/www**
 ## Setup application
 Next step: run **startapp.sh** as root!
 ```sh
-./startapp.sh manager manager.chat3.generem.ru /home
+./startapp.sh $user $domain $user_home
 ```
 
 ### Edit nginx.conf for your domain
