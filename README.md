@@ -7,25 +7,34 @@ It is necessary that the directory **/home/$OWN/ENV/.env.production.local** cont
 ```ini
 #/home/$OWN/ENV/.env.production.local
 # PORT
-PORT = 3030
+PORT = 3000
 
-# TOKEN
-SECRET_KEY = asdfadf
+# TOKENS
+TOKEN_SECRET_KEY = your_key
+REFRESH_TOKEN_SECRET_KEY = your_key
+TOKEN_TIME = 15m,            
+REFRESH_TOKEN_TIME = 15d
+REFRESH_TOKEN_COOKIES_EXPIRES = 14 # days
 
 # LOG
-LOG_FORMAT = combined
+LOG_FORMAT = dev
 LOG_DIR = ../logs
 
 # CORS
-ORIGIN = your.domain.com
+ORIGIN = your_host
 CREDENTIALS = true
 
 # DATABASE
 POSTGRES_USER = root
-POSTGRES_PASSWORD = asdfasdf
+POSTGRES_PASSWORD = your_password
 POSTGRES_HOST = localhost
 POSTGRES_PORT = 5432
-POSTGRES_DB = prod
+POSTGRES_DB = dev
+
+# EXTERNAL API
+EXTERNAL_API_URL = api_host
+EXTERNAL_API_PORT = 4567
+EXTERNAL_API_KEY = api_key
 ```
 
 Use:
