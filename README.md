@@ -37,11 +37,20 @@ EXTERNAL_API_PORT = 4567
 EXTERNAL_API_KEY = api_key
 ```
 
-Use:
+## Use
+### For first time
+
 ```bash 
 $ git clone git@github.com:vzx7/chat3-manager-deploy.git
 $ cd chat3-manager-deploy
 $ chmod u+x c3deploy.sh
+$ ./c3deploy.sh web www 
+```
+### For update
+
+```bash 
+$ cd chat3-manager-deploy
+$ git update
 $ ./c3deploy.sh web www 
 ```
 
