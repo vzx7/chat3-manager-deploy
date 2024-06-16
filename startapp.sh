@@ -37,14 +37,17 @@ then
                 | sed 's/ *$//g')
 fi
 
-if [ -e  "$nodeDir/app.sock" ] then
+if [ -e  "$nodeDir/app.sock" ]; then
     rm "$nodeDir/app.sock"
+    runuser -l $user -c "pm2 del $scriptName"
+    echo "clear processes app.sock and old app instance"
 fi
 
-runuser -l $user -c "pm2 del $scriptName"
+
 
 envFile=""
-#apply enviroment variables from .env file
+# apply enviroment variables from .env file
+# !!! Attention, the .env file must not contain comments !!!
 if [ -f "$nodeDir/.env" ]; then
     echo ".env file in folder, applying."
     envFile=$(grep -v '^#' $nodeDir/.env | xargs | sed "s/(PORT=(.*) )//g" | sed "s/ = /=/g")
@@ -53,7 +56,6 @@ fi
 
 #remove blank spaces
 pmPath=$(echo "$nodeDir/$mainScript" | tr -d ' ')
-#runuser -l $user -c "$envFile PORT=$nodeDir/app.sock HOST=127.0.0.1 PWD=$nodeDir NODE_ENV=production pm2 start $pmPath --name $scriptName $nodeInterpreter"
 runuser -l $user -c "$envFile PORT=$nodeDir/app.sock HOST=127.0.0.1 PWD=$nodeDir NODE_ENV=production pm2 start $pmPath --name $scriptName $nodeInterpreter"
 
 echo "Waiting for init PM2"

@@ -2,10 +2,11 @@
 Chat3-manager project deployment script.
 Git must be installed on the system.
 
-It is necessary that the directory **/home/$OWN/ENV/.env.production.local** contains a settings file for your backend.
+It is necessary that the directory **$home/$user/web/$domain/nodeapp/.env.production.local** contains a settings file for your backend.
+Where $domain is your domain dir in root project.
 
 ```ini
-#/home/$OWN/ENV/.env.production.local
+#/$home/$user/web/$domain/nodeapp/.env.production.local
 # PORT
 PORT = 3000
 
