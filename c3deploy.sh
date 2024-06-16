@@ -26,7 +26,7 @@ function startapp {
     echo "Start app..."
     chown -R $OWN:$OWN $BACK_DIR
     cd ~/chat3-manager-deploy
-    ./startapp.sh manager manager.chat3.generem.ru /home
+    echo "Next step: run startapp.sh as root!"
 }
 
 function build_back {
