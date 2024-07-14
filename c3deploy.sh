@@ -30,7 +30,6 @@ function startapp {
 }
 
 function build_back {
-    rm -Rf $TMP_BACK
     mkdir $TMP_BACK
     git clone git@github.com:vzx7/chat3-manager-backend.git $TMP_BACK --verbose
     cd $TMP_BACK
@@ -51,6 +50,7 @@ function install_back {
         mkdir $BACK_DIST_DIR
         cp_back
     fi
+    rm -Rf $TMP_BACK
 }
 
 function deploy_back () {
@@ -74,12 +74,12 @@ function update_back {
 function install_front {
     echo "Instal frontend."
     cp -R ./dist/* $FRONT_DIR
+    rm -Rf $TMP_FRONT
     echo -e "Done."
 }
 
 function deploy_front {
     echo "Deploing frontend to $FRONT_DIR..."
-    rm -Rf $TMP_FRONT
     mkdir $TMP_FRONT
     git clone git@github.com:vzx7/chat3-manager-frontend.git $TMP_FRONT --verbose
     cd $TMP_FRONT
